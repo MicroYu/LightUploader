@@ -186,10 +186,10 @@ func getRessumableUploadHeader(fileSizeInBytes int64, accessToken string, startO
 	var cLength string
 
 	if isLastChunk {
-		cRange = fmt.Sprintf("bytes %d-%d/%d", startOffset, fileSizeInBytes-2, fileSizeInBytes-1)
+		cRange = fmt.Sprintf("bytes %d-%d/%d", startOffset, fileSizeInBytes-1, fileSizeInBytes)
 		cLength = fmt.Sprintf("%d", lastChunkSize)
 	} else {
-		cRange = fmt.Sprintf("bytes %d-%d/%d", startOffset, startOffset+fileutil.GetDefaultChunkSize()-1, fileSizeInBytes-1)
+		cRange = fmt.Sprintf("bytes %d-%d/%d", startOffset, startOffset+fileutil.GetDefaultChunkSize()-1, fileSizeInBytes)
 		cLength = fmt.Sprintf("%d", fileutil.GetDefaultChunkSize())
 	}
 
