@@ -53,6 +53,7 @@ func (rs *RestoreService) recoverableUpload(userID string, bearerToken string, c
 	for i, sOffset := range startOffsetLst {
 		if i == lastChunkIndex {
 			lastChunkSize, err := fileutil.GetLatsChunkSizeInBytes(filePath)
+			lastChunkSize  = lastChunkSize + 1
 			if err != nil {
 				log.Panic(err)
 			}
@@ -187,7 +188,7 @@ func getRessumableUploadHeader(fileSizeInBytes int64, accessToken string, startO
 
 	if isLastChunk {
 		cRange = fmt.Sprintf("bytes %d-%d/%d", startOffset, fileSizeInBytes-1, fileSizeInBytes)
-		cLength = fmt.Sprintf("%d", lastChunkSize)
+		cLength = fmt.Sprintf("%d", lastChunkSize+1)
 	} else {
 		cRange = fmt.Sprintf("bytes %d-%d/%d", startOffset, startOffset+fileutil.GetDefaultChunkSize()-1, fileSizeInBytes)
 		cLength = fmt.Sprintf("%d", fileutil.GetDefaultChunkSize())
